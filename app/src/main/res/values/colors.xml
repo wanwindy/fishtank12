@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="brand_blue">#56D4FF</color>
+    <color name="brand_blue_deep">#0A7DFF</color>
+    <color name="brand_navy">#10325B</color>
+    <color name="surface_card">#F7FBFF</color>
+    <color name="surface_card_alt">#EAF4FF</color>
+    <color name="surface_line">#C9DDF3</color>
+    <color name="text_primary_dark">#17324D</color>
+    <color name="text_secondary_dark">#5E7896</color>
+    <color name="surface_soft">#DCEBFA</color>
+</resources>

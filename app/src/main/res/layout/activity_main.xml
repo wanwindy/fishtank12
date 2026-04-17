@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backcloc"
+    android:fillViewport="true"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/hero_card_bg"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="算智渔防-主机"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="智能鱼缸水质监测、阈值设置与联动控制终端"
+                android:textColor="#D7E6FF"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_connection_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/tab_inactive_bg"
+                android:paddingLeft="14dp"
+                android:paddingTop="8dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="8dp"
+                android:text="离线"
+                android:textColor="@color/text_secondary_dark"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_topic_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="等待主题确认"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="实时监测"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/metric_card_bg"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="浑浊度"
+                    android:textColor="@color/text_secondary_dark"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/Sensor4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="0 NTU"
+                    android:textColor="@color/text_primary_dark"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/ss1"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="14dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/backtext" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/metric_card_bg"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="光照度"
+                    android:textColor="@color/text_secondary_dark"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/Sensor3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="0 Lux"
+                    android:textColor="@color/text_primary_dark"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/ss2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="14dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/backtext" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/metric_card_bg"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="水温"
+                    android:textColor="@color/text_secondary_dark"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/Sensor2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="0°C"
+                    android:textColor="@color/text_primary_dark"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/ss3"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="14dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/backtext" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/metric_card_bg"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="水位"
+                    android:textColor="@color/text_secondary_dark"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/Sensor1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="0 mm"
+                    android:textColor="@color/text_primary_dark"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/ss4"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="14dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/backtext" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/metric_card_bg"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PH"
+                android:textColor="@color/text_secondary_dark"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/Sensor5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="0"
+                android:textColor="@color/text_primary_dark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/ss5"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="14dp"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/backtext" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/panel_card_bg"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/zidong"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/tab_active_bg"
+                android:gravity="center"
+                android:text="自动"
+                android:textColor="@color/brand_navy"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dingshi"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/tab_inactive_bg"
+                android:gravity="center"
+                android:text="定时"
+                android:textColor="@color/text_secondary_dark"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/yuzhi"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/tab_inactive_bg"
+                android:gravity="center"
+                android:text="阈值"
+                android:textColor="@color/text_secondary_dark"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/shoudong"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/tab_inactive_bg"
+                android:gravity="center"
+                android:text="手动"
+                android:textColor="@color/text_secondary_dark"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/panel_card_bg"
+            android:elevation="8dp"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="AI 水质分析"
+                    android:textColor="@color/text_primary_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_ai_analyze"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/tab_active_bg"
+                    android:minWidth="96dp"
+                    android:text="AI 分析"
+                    android:textAllCaps="false"
+                    android:textColor="@color/brand_navy"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ai_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/text_secondary_dark"
+                android:textSize="13sp" />
+
+            <ProgressBar
+                android:id="@+id/ai_loading"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/ai_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/analysis_result_bg"
+                android:lineSpacingExtra="4dp"
+                android:minHeight="90dp"
+                android:padding="16dp"
+                android:textColor="@color/text_primary_dark"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Mode1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/panel_card_bg"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手动联控"
+                android:textColor="@color/text_primary_dark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/onoroff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/control_row_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="补水"
+                        android:textColor="@color/text_primary_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/Switch2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/setting_button_thumb"
+                        android:track="@drawable/setting_button_track" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/control_row_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="增氧"
+                        android:textColor="@color/text_primary_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/Switch3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/setting_button_thumb"
+                        android:track="@drawable/setting_button_track" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/control_row_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="换水"
+                        android:textColor="@color/text_primary_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/Switch4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/setting_button_thumb"
+                        android:track="@drawable/setting_button_track" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/control_row_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="投喂"
+                        android:textColor="@color/text_primary_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/Switch5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/setting_button_thumb"
+                        android:track="@drawable/setting_button_track" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/control_row_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="灯光"
+                        android:textColor="@color/text_primary_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/Switch6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/setting_button_thumb"
+                        android:track="@drawable/setting_button_track" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/control_row_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="蜂鸣器"
+                        android:textColor="@color/text_primary_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/Switch7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/setting_button_thumb"
+                        android:track="@drawable/setting_button_track" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Mode2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/panel_card_bg"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="阈值设置"
+                android:textColor="@color/text_primary_dark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <include layout="@layout/view_threshold_rows" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Mode3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/panel_card_bg"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="定时策略"
+                android:textColor="@color/text_primary_dark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/control_row_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="模式切换（投喂/增氧）"
+                    android:textColor="@color/text_primary_dark"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/GoTimeFlag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumb="@drawable/setting_button_thumb"
+                    android:track="@drawable/setting_button_track" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/control_row_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="定时总开关"
+                    android:textColor="@color/text_primary_dark"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/TimeFlag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumb="@drawable/setting_button_thumb"
+                    android:track="@drawable/setting_button_track" />
+            </LinearLayout>
+
+            <include layout="@layout/view_time_rows" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

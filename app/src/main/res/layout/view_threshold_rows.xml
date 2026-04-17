@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/control_row_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="水温阈值"
+            android:textColor="@color/text_primary_dark"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor1down"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jian" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Sensor1_Threshold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:minWidth="28dp"
+                android:text="0"
+                android:textColor="@color/text_primary_dark"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor1add"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jia" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/control_row_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="水位阈值"
+            android:textColor="@color/text_primary_dark"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor2down"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jian" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Sensor2_Threshold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:minWidth="28dp"
+                android:text="0"
+                android:textColor="@color/text_primary_dark"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor2add"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jia" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/control_row_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="光照阈值"
+            android:textColor="@color/text_primary_dark"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor3down"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jian" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Sensor3_Threshold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:minWidth="28dp"
+                android:text="0"
+                android:textColor="@color/text_primary_dark"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor3add"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jia" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/control_row_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="浑浊度阈值"
+            android:textColor="@color/text_primary_dark"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor4down"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jian" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Sensor4_Threshold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:minWidth="28dp"
+                android:text="0"
+                android:textColor="@color/text_primary_dark"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor4add"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jia" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/control_row_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PH 上限"
+            android:textColor="@color/text_primary_dark"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor8down"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jian" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Sensor5_Threshold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:minWidth="28dp"
+                android:text="0"
+                android:textColor="@color/text_primary_dark"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor8add"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jia" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/control_row_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PH 下限"
+            android:textColor="@color/text_primary_dark"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor9down"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jian" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Sensor6_Threshold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:minWidth="28dp"
+                android:text="0"
+                android:textColor="@color/text_primary_dark"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/jj_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/Sensor9add"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/jia" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</merge>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请输入硬件对应的 MQTT 订阅/发布主题"
+        android:textColor="@color/text_primary_dark"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_field_bg"
+        android:hint="订阅主题（Sub）"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:textColor="@color/text_primary_dark"
+        android:textColorHint="@color/text_secondary_dark" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/input_field_bg"
+        android:hint="发布主题（Pub）"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:textColor="@color/text_primary_dark"
+        android:textColorHint="@color/text_secondary_dark" />
+</LinearLayout>
