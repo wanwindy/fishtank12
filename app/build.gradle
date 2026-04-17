@@ -31,8 +31,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "ARK_BASE_URL", "\"https://ark.cn-beijing.volces.com/api/v3\""
-            buildConfigField "String", "ARK_MODEL", "\"doubao-seed-1-6-250615\""
-            buildConfigField "String", "ARK_API_KEY", "\"REPLACE_WITH_YOUR_ARK_API_KEY\""
+            buildConfigField "String", "ARK_MODEL", "\"doubao-seed-2-0-mini-260215\""
+            buildConfigField "String", "ARK_API_KEY", "\"fac166da-fb94-4fa4-b988-6d3828723a9e\""
         }
     }
     compileOptions {
