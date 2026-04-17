@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Switch refillSwitch;
     private Switch oxygenSwitch;
-    private Switch changeWaterSwitch;
     private Switch feedSwitch;
     private Switch lightSwitch;
     private Switch buzzerSwitch;
@@ -487,10 +486,9 @@ public class MainActivity extends AppCompatActivity {
 
         refillSwitch = findViewById(R.id.Switch2);
         oxygenSwitch = findViewById(R.id.Switch3);
-        changeWaterSwitch = findViewById(R.id.Switch4);
-        feedSwitch = findViewById(R.id.Switch5);
-        lightSwitch = findViewById(R.id.Switch6);
-        buzzerSwitch = findViewById(R.id.Switch7);
+        feedSwitch = findViewById(R.id.Switch4);
+        lightSwitch = findViewById(R.id.Switch5);
+        buzzerSwitch = findViewById(R.id.Switch6);
 
         waterTempThresholdDownView = findViewById(R.id.Sensor1down);
         waterTempThresholdAddView = findViewById(R.id.Sensor1add);
@@ -559,10 +557,9 @@ public class MainActivity extends AppCompatActivity {
 
         bindSwitchCommand(refillSwitch, "Switch2ON", "Switch2OFF");
         bindSwitchCommand(oxygenSwitch, "Switch3ON", "Switch3OFF");
-        bindSwitchCommand(changeWaterSwitch, "Switch4ON", "Switch4OFF");
-        bindSwitchCommand(feedSwitch, "Switch5ON", "Switch5OFF");
-        bindSwitchCommand(lightSwitch, "Switch6ON", "Switch6OFF");
-        bindSwitchCommand(buzzerSwitch, "Switch7ON", "Switch7OFF");
+        bindSwitchCommand(feedSwitch, "Switch4ON", "Switch4OFF");
+        bindSwitchCommand(lightSwitch, "Switch5ON", "Switch5OFF");
+        bindSwitchCommand(buzzerSwitch, "Switch6ON", "Switch6OFF");
 
         aiAnalyzeButton.setOnClickListener(view -> triggerAiAnalysis());
     }
