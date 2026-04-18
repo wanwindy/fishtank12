@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
     private String mqttSubTopic = "";
     private String mqttPubTopic = "";
     private String latestTelemetrySummary = "";
+    private volatile String lastMqttError = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,8 +173,9 @@ public class MainActivity extends AppCompatActivity {
                         parseJsonObject(String.valueOf(msg.obj));
                         break;
                     case MSG_CONNECT_FAILED:
-                        updateConnectionStatus(false, "MQTT 连接失败");
-                        Toast.makeText(MainActivity.this, "MQTT服务器连接失败", Toast.LENGTH_SHORT).show();
+                        String errorMessage = TextUtils.isEmpty(lastMqttError) ? "MQTT 连接失败" : "MQTT 连接失败：" + lastMqttError;
+                        updateConnectionStatus(false, errorMessage);
+                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         break;
                     case MSG_CONNECT_SUCCESS:
                         updateConnectionStatus(true, "MQTT 已连接");
@@ -248,6 +250,8 @@ public class MainActivity extends AppCompatActivity {
     private void initializeAfterLogin() {
         mqttInit();
         listenForEvents();
+        updateConnectionStatus(false, "正在连接 MQTT");
+        mqttConnect();
         startReconnect();
     }
 
@@ -287,10 +291,12 @@ public class MainActivity extends AppCompatActivity {
             try {
                 if (client != null && !client.isConnected()) {
                     client.connect(mqttConnectOptions);
+                    lastMqttError = "";
                     handler.sendEmptyMessage(MSG_CONNECT_SUCCESS);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                lastMqttError = e.getMessage();
                 handler.sendEmptyMessage(MSG_CONNECT_FAILED);
             }
         }).start();
@@ -306,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             mqttConnect();
-        }, 0, 10, TimeUnit.SECONDS);
+        }, 10, 10, TimeUnit.SECONDS);
     }
 
     private void subscribeTopicIfNeeded() {
@@ -337,65 +343,11 @@ public class MainActivity extends AppCompatActivity {
     private void parseJsonObject(String jsonText) {
         try {
             JSONObject jsonObject = new JSONObject(jsonText);
-
-            String sensor1 = jsonObject.optString("sensor1", "0");
-            String sensor2 = jsonObject.optString("sensor2", "0");
-            String sensor3 = jsonObject.optString("sensor3", "0");
-            String sensor4 = jsonObject.optString("sensor4", "0");
-            String sensor5 = jsonObject.optString("sensor5", "0");
-            String sensor6 = jsonObject.optString("sensor6", "0");
-            String sensor7 = jsonObject.optString("sensor7", "0");
-            String sensor8 = jsonObject.optString("sensor8", "0");
-            String sensor9 = jsonObject.optString("sensor9", "0");
-            String sensor10 = jsonObject.optString("sensor10", "0");
-            String sensor11 = jsonObject.optString("sensor11", "0");
-            String sensor12 = jsonObject.optString("sensor12", "0");
-            String sensor13 = jsonObject.optString("sensor13", "0");
-            String sensor14 = jsonObject.optString("sensor14", "0");
-            String sensor15 = jsonObject.optString("sensor15", "0");
-            String sensor16 = jsonObject.optString("sensor16", "0");
-            String sensor17 = jsonObject.optString("sensor17", "0");
-            String sensor18 = jsonObject.optString("sensor18", "0");
-            String sensor19 = jsonObject.optString("sensor19", "0");
-            String sensor20 = jsonObject.optString("sensor20", "0");
-
-            waterTempValueView.setText(sensor1 + "°C");
-            waterLevelValueView.setText(sensor2 + " mm");
-            lightValueView.setText(sensor3 + " Lux");
-            turbidityValueView.setText(sensor4 + " NTU");
-            phValueView.setText(sensor5);
-
-            setScaledProgress(waterTempProgress, parseFloatSafely(sensor1), WATER_TEMP_RANGE);
-            setScaledProgress(waterLevelProgress, parseFloatSafely(sensor2), WATER_LEVEL_RANGE);
-            setScaledProgress(lightProgress, parseFloatSafely(sensor3), LIGHT_RANGE);
-            setScaledProgress(turbidityProgress, parseFloatSafely(sensor4), TURBIDITY_RANGE);
-            setScaledProgress(phProgress, parseFloatSafely(sensor5), PH_RANGE);
-
-            waterTempThresholdView.setText(sensor6);
-            waterLevelThresholdView.setText(sensor7);
-            lightThresholdView.setText(sensor8);
-            turbidityThresholdView.setText(sensor9);
-            phMaxView.setText(sensor10);
-            phMinView.setText(sensor11);
-
-            if ("0".equals(sensor20)) {
-                hourView.setText(sensor12);
-                minuteView.setText(sensor13);
-                secondView.setText(sensor14);
-                durationView.setText(sensor15);
+            if (isExtendedTelemetry(jsonObject)) {
+                applyExtendedTelemetry(jsonObject);
             } else {
-                hourView.setText(sensor16);
-                minuteView.setText(sensor17);
-                secondView.setText(sensor18);
-                durationView.setText(sensor19);
+                applyLegacyTelemetry(jsonObject);
             }
-
-            latestTelemetrySummary = buildTelemetrySummary(
-                    sensor1, sensor2, sensor3, sensor4, sensor5,
-                    sensor6, sensor7, sensor8, sensor9, sensor10, sensor11,
-                    sensor12, sensor13, sensor14, sensor15,
-                    sensor16, sensor17, sensor18, sensor19, sensor20
-            );
             aiHintView.setText("最近数据更新时间 " + timeFormat.format(new Date()));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -403,7 +355,131 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private String buildTelemetrySummary(
+    private boolean isExtendedTelemetry(JSONObject jsonObject) {
+        return jsonObject.has("sensor20")
+                || jsonObject.has("sensor16")
+                || jsonObject.has("sensor17")
+                || jsonObject.has("sensor18")
+                || jsonObject.has("sensor19");
+    }
+
+    private void applyExtendedTelemetry(JSONObject jsonObject) {
+        String sensor1 = jsonObject.optString("sensor1", "0");
+        String sensor2 = jsonObject.optString("sensor2", "0");
+        String sensor3 = jsonObject.optString("sensor3", "0");
+        String sensor4 = jsonObject.optString("sensor4", "0");
+        String sensor5 = jsonObject.optString("sensor5", "0");
+        String sensor6 = jsonObject.optString("sensor6", "0");
+        String sensor7 = jsonObject.optString("sensor7", "0");
+        String sensor8 = jsonObject.optString("sensor8", "0");
+        String sensor9 = jsonObject.optString("sensor9", "0");
+        String sensor10 = jsonObject.optString("sensor10", "0");
+        String sensor11 = jsonObject.optString("sensor11", "0");
+        String sensor12 = jsonObject.optString("sensor12", "0");
+        String sensor13 = jsonObject.optString("sensor13", "0");
+        String sensor14 = jsonObject.optString("sensor14", "0");
+        String sensor15 = jsonObject.optString("sensor15", "0");
+        String sensor16 = jsonObject.optString("sensor16", "0");
+        String sensor17 = jsonObject.optString("sensor17", "0");
+        String sensor18 = jsonObject.optString("sensor18", "0");
+        String sensor19 = jsonObject.optString("sensor19", "0");
+        String sensor20 = jsonObject.optString("sensor20", "0");
+
+        waterTempValueView.setText(sensor1 + "°C");
+        waterLevelValueView.setText(sensor2 + " mm");
+        lightValueView.setText(sensor3 + " Lux");
+        turbidityValueView.setText(sensor4 + " NTU");
+        phValueView.setText(sensor5);
+
+        setScaledProgress(waterTempProgress, parseFloatSafely(sensor1), WATER_TEMP_RANGE);
+        setScaledProgress(waterLevelProgress, parseFloatSafely(sensor2), WATER_LEVEL_RANGE);
+        setScaledProgress(lightProgress, parseFloatSafely(sensor3), LIGHT_RANGE);
+        setScaledProgress(turbidityProgress, parseFloatSafely(sensor4), TURBIDITY_RANGE);
+        setScaledProgress(phProgress, parseFloatSafely(sensor5), PH_RANGE);
+
+        waterTempThresholdView.setText(sensor6);
+        waterLevelThresholdView.setText(sensor7);
+        lightThresholdView.setText(sensor8);
+        turbidityThresholdView.setText(sensor9);
+        phMaxView.setText(sensor10);
+        phMinView.setText(sensor11);
+
+        if ("0".equals(sensor20)) {
+            hourView.setText(sensor12);
+            minuteView.setText(sensor13);
+            secondView.setText(sensor14);
+            durationView.setText(sensor15);
+        } else {
+            hourView.setText(sensor16);
+            minuteView.setText(sensor17);
+            secondView.setText(sensor18);
+            durationView.setText(sensor19);
+        }
+
+        latestTelemetrySummary = buildExtendedTelemetrySummary(
+                sensor1, sensor2, sensor3, sensor4, sensor5,
+                sensor6, sensor7, sensor8, sensor9, sensor10, sensor11,
+                sensor12, sensor13, sensor14, sensor15,
+                sensor16, sensor17, sensor18, sensor19, sensor20
+        );
+    }
+
+    private void applyLegacyTelemetry(JSONObject jsonObject) {
+        String sensor1 = jsonObject.optString("sensor1", "0");
+        String sensor2 = jsonObject.optString("sensor2", "0");
+        String sensor3 = jsonObject.optString("sensor3", "0");
+        String sensor4 = jsonObject.optString("sensor4", "0");
+        String sensor5 = jsonObject.optString("sensor5", "0");
+        String sensor6 = jsonObject.optString("sensor6", "0");
+        String sensor7 = jsonObject.optString("sensor7", "0");
+        String sensor8 = jsonObject.optString("sensor8", "0");
+        String sensor9 = jsonObject.optString("sensor9", "0");
+        String sensor10 = jsonObject.optString("sensor10", "0");
+        String sensor11 = jsonObject.optString("sensor11", "0");
+        String sensor12 = jsonObject.optString("sensor12", "0");
+        String sensor13 = jsonObject.optString("sensor13", "0");
+        String sensor14 = jsonObject.optString("sensor14", "0");
+        String sensor15 = jsonObject.optString("sensor15", "0");
+
+        waterTempValueView.setText(sensor1 + "°C");
+        waterLevelValueView.setText(sensor2 + " mm");
+        lightValueView.setText(sensor3 + " Lux");
+        turbidityValueView.setText("-- NTU");
+        phValueView.setText("--");
+
+        setScaledProgress(waterTempProgress, parseFloatSafely(sensor1), WATER_TEMP_RANGE);
+        setScaledProgress(waterLevelProgress, parseFloatSafely(sensor2), WATER_LEVEL_RANGE);
+        setScaledProgress(lightProgress, parseFloatSafely(sensor3), LIGHT_RANGE);
+        setScaledProgress(turbidityProgress, 0f, TURBIDITY_RANGE);
+        setScaledProgress(phProgress, 0f, PH_RANGE);
+
+        waterTempThresholdView.setText(sensor4);
+        waterLevelThresholdView.setText(sensor5);
+        lightThresholdView.setText(sensor6);
+        turbidityThresholdView.setText("--");
+        phMaxView.setText("--");
+        phMinView.setText("--");
+
+        if ("0".equals(sensor15)) {
+            hourView.setText(sensor7);
+            minuteView.setText(sensor8);
+            secondView.setText(sensor9);
+            durationView.setText(sensor10);
+        } else {
+            hourView.setText(sensor11);
+            minuteView.setText(sensor12);
+            secondView.setText(sensor13);
+            durationView.setText(sensor14);
+        }
+
+        latestTelemetrySummary = buildLegacyTelemetrySummary(
+                sensor1, sensor2, sensor3, sensor4, sensor5, sensor6,
+                sensor7, sensor8, sensor9, sensor10,
+                sensor11, sensor12, sensor13, sensor14, sensor15
+        );
+    }
+
+    private String buildExtendedTelemetrySummary(
             String sensor1,
             String sensor2,
             String sensor3,
@@ -438,6 +514,37 @@ public class MainActivity extends AppCompatActivity {
                 + "。阈值设置：水温 " + sensor6 + "，水位 " + sensor7 + "，光照 " + sensor8
                 + "，浑浊度 " + sensor9 + "，PH 范围 " + sensor11 + " - " + sensor10
                 + "。定时策略：" + timeModeLabel + "，执行时间 " + timeSummary + "。";
+    }
+
+    private String buildLegacyTelemetrySummary(
+            String sensor1,
+            String sensor2,
+            String sensor3,
+            String sensor4,
+            String sensor5,
+            String sensor6,
+            String sensor7,
+            String sensor8,
+            String sensor9,
+            String sensor10,
+            String sensor11,
+            String sensor12,
+            String sensor13,
+            String sensor14,
+            String sensor15
+    ) {
+        String timeModeLabel = "0".equals(sensor15) ? "增氧模式" : "投喂模式";
+        String timeSummary;
+        if ("0".equals(sensor15)) {
+            timeSummary = sensor7 + "时" + sensor8 + "分" + sensor9 + "秒，持续" + sensor10 + "秒";
+        } else {
+            timeSummary = sensor11 + "时" + sensor12 + "分" + sensor13 + "秒，持续" + sensor14 + "秒";
+        }
+
+        return "当前鱼缸监测数据：水温 " + sensor1 + "°C，水位 " + sensor2 + " mm，光照 " + sensor3
+                + " Lux。阈值设置：水温 " + sensor4 + "，水位 " + sensor5 + "，光照 " + sensor6
+                + "。定时策略：" + timeModeLabel + "，执行时间 " + timeSummary
+                + "。当前硬件未上报浑浊度与 PH 数据。";
     }
 
     private void controlInitialization() {
@@ -569,8 +676,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void bindSwitchCommand(Switch controlSwitch, String onCommand, String offCommand) {
-        controlSwitch.setOnCheckedChangeListener((buttonView, isChecked) ->
-                publishMessage(mqttPubTopic, isChecked ? onCommand : offCommand));
+        controlSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            publishMessage(mqttPubTopic, "Manual");
+            publishMessage(mqttPubTopic, isChecked ? onCommand : offCommand);
+        });
     }
 
     private void selectModePanel(TextView selectedTab, LinearLayout visiblePanel) {
