@@ -480,7 +480,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="投喂"
+                        android:text="换水"
                         android:textColor="@color/text_primary_dark"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -506,7 +506,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="灯光"
+                        android:text="投喂"
                         android:textColor="@color/text_primary_dark"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -532,13 +532,39 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="蜂鸣器"
+                        android:text="灯光"
                         android:textColor="@color/text_primary_dark"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <Switch
                         android:id="@+id/Switch6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/setting_button_thumb"
+                        android:track="@drawable/setting_button_track" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/control_row_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="蜂鸣器"
+                        android:textColor="@color/text_primary_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/Switch7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:thumb="@drawable/setting_button_thumb"

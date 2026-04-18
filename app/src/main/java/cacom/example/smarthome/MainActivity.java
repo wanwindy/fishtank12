@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Switch refillSwitch;
     private Switch oxygenSwitch;
+    private Switch changeWaterSwitch;
     private Switch feedSwitch;
     private Switch lightSwitch;
     private Switch buzzerSwitch;
@@ -593,9 +594,10 @@ public class MainActivity extends AppCompatActivity {
 
         refillSwitch = findViewById(R.id.Switch2);
         oxygenSwitch = findViewById(R.id.Switch3);
-        feedSwitch = findViewById(R.id.Switch4);
-        lightSwitch = findViewById(R.id.Switch5);
-        buzzerSwitch = findViewById(R.id.Switch6);
+        changeWaterSwitch = findViewById(R.id.Switch4);
+        feedSwitch = findViewById(R.id.Switch5);
+        lightSwitch = findViewById(R.id.Switch6);
+        buzzerSwitch = findViewById(R.id.Switch7);
 
         waterTempThresholdDownView = findViewById(R.id.Sensor1down);
         waterTempThresholdAddView = findViewById(R.id.Sensor1add);
@@ -664,9 +666,10 @@ public class MainActivity extends AppCompatActivity {
 
         bindSwitchCommand(refillSwitch, "Switch2ON", "Switch2OFF");
         bindSwitchCommand(oxygenSwitch, "Switch3ON", "Switch3OFF");
-        bindSwitchCommand(feedSwitch, "Switch4ON", "Switch4OFF");
-        bindSwitchCommand(lightSwitch, "Switch5ON", "Switch5OFF");
-        bindSwitchCommand(buzzerSwitch, "Switch6ON", "Switch6OFF");
+        bindSwitchCommand(changeWaterSwitch, "Switch4ON", "Switch4OFF");
+        bindSwitchCommand(feedSwitch, "Switch5ON", "Switch5OFF");
+        bindSwitchCommand(lightSwitch, "Switch6ON", "Switch6OFF");
+        bindSwitchCommand(buzzerSwitch, "Switch7ON", "Switch7OFF");
 
         aiAnalyzeButton.setOnClickListener(view -> triggerAiAnalysis());
     }
@@ -737,7 +740,7 @@ public class MainActivity extends AppCompatActivity {
         JSONObject body = new JSONObject();
         body.put("model", BuildConfig.ARK_MODEL);
         body.put("temperature", 0.2);
-        body.put("max_tokens", 320);
+        body.put("max_tokens", 480);
         body.put("messages", buildAiMessages());
 
         HttpURLConnection connection = null;
@@ -786,12 +789,30 @@ public class MainActivity extends AppCompatActivity {
 
         JSONObject systemMessage = new JSONObject();
         systemMessage.put("role", "system");
-        systemMessage.put("content", "你是智能鱼缸水质监测专家，请根据实时数据给出专业、保守、可执行的中文建议。输出控制在120字内，包含总体判断、风险点、建议动作。");
+        systemMessage.put("content", "你是“算智渔防”的智能鱼缸与养殖水质决策助手，不只做监测解读，还要完成“数据→建议→行动”的闭环。"
+                + "请用通俗、口语化中文回答，让没有专业背景的养殖户也能直接照做。"
+                + "如果多个指标同时异常，必须按风险和处理先后给出优先级，不能只平铺罗列。"
+                + "默认优先级规则为：1. 水位异常，先补水，保障鱼类生存空间；"
+                + "2. 溶解氧异常，如提供相关数据则优先增氧；"
+                + "3. pH异常，其次调整；"
+                + "4. 浊度异常，最后处理。"
+                + "例如当水位偏低且 pH 偏低时，要先建议补水，待水位恢复后再建议换水或调节 pH。"
+                + "若缺少养殖品种、地域或气候信息，不要编造，要明确说明当前给出的是通用建议。"
+                + "输出格式固定为："
+                + "【总体判断】一句话结论；"
+                + "【优先处理】按 1. 2. 3. 列出异常项、风险原因和先后顺序；"
+                + "【建议动作】给出明确动作、对应设备、持续时间或复测时机；"
+                + "【补充说明】说明缺失数据、人工复核点或注意事项。"
+                + "整体保持简洁，但必须能直接执行。");
         messages.put(systemMessage);
 
         JSONObject userMessage = new JSONObject();
         userMessage.put("role", "user");
-        userMessage.put("content", latestTelemetrySummary);
+        userMessage.put("content", latestTelemetrySummary
+                + "\n可用设备：补水、增氧、换水、投喂、灯光、蜂鸣器。"
+                + "\n当前未提供养殖品种、地域和气候信息，如信息不足请明确标注为“通用建议”，不要虚构品种、地区或季节。"
+                + "\n如果多个阈值同时异常，请明确写出先做什么、后做什么，以及每一步对应的设备动作。"
+                + "\n如果没有溶解氧等传感器数据，请直接说明“当前无该数据”，不要编造数值。");
         messages.put(userMessage);
 
         return messages;
