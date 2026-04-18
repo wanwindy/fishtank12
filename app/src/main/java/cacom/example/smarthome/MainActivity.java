@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -714,6 +715,9 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String aiResult = requestAiDiagnosis();
                 runOnUiThread(() -> aiResultView.setText(aiResult));
+            } catch (SocketTimeoutException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> aiResultView.setText("AI 分析超时：当前网络较慢或模型响应较久，请稍后重试。"));
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() -> aiResultView.setText("AI 分析失败：" + e.getMessage()));
@@ -748,8 +752,8 @@ public class MainActivity extends AppCompatActivity {
             URL url = new URL(BuildConfig.ARK_BASE_URL + "/chat/completions");
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
-            connection.setConnectTimeout(15000);
-            connection.setReadTimeout(30000);
+            connection.setConnectTimeout(30000);
+            connection.setReadTimeout(90000);
             connection.setDoOutput(true);
             connection.setRequestProperty("Authorization", "Bearer " + BuildConfig.ARK_API_KEY);
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
