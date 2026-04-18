@@ -676,10 +676,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void bindSwitchCommand(Switch controlSwitch, String onCommand, String offCommand) {
-        controlSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            publishMessage(mqttPubTopic, "Manual");
-            publishMessage(mqttPubTopic, isChecked ? onCommand : offCommand);
-        });
+        controlSwitch.setOnCheckedChangeListener((buttonView, isChecked) ->
+                publishMessage(mqttPubTopic, isChecked ? onCommand : offCommand));
     }
 
     private void selectModePanel(TextView selectedTab, LinearLayout visiblePanel) {
