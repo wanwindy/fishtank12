@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
     private AlertDialog loginDialog;
+    private AlertDialog temperatureAlertDialog;
 
     private final String mqttClientId = "android-" + ((int) ((Math.random() * 9 + 1) * 10000));
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.CHINA);
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
     private String mqttPubTopic = "";
     private String latestTelemetrySummary = "";
     private volatile String lastMqttError = "";
+    private boolean temperatureAlertTriggered = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -424,6 +426,7 @@ public class MainActivity extends AppCompatActivity {
                 sensor12, sensor13, sensor14, sensor15,
                 sensor16, sensor17, sensor18, sensor19, sensor20
         );
+        checkTemperatureWarning(sensor1, sensor6);
     }
 
     private void applyLegacyTelemetry(JSONObject jsonObject) {
@@ -479,6 +482,53 @@ public class MainActivity extends AppCompatActivity {
                 sensor7, sensor8, sensor9, sensor10,
                 sensor11, sensor12, sensor13, sensor14, sensor15
         );
+        checkTemperatureWarning(sensor1, sensor4);
+    }
+
+    private void checkTemperatureWarning(String temperatureText, String thresholdText) {
+        float currentTemperature = parseFloatSafely(temperatureText);
+        float thresholdTemperature = parseFloatSafely(thresholdText);
+
+        if (thresholdTemperature <= 0f) {
+            temperatureAlertTriggered = false;
+            dismissTemperatureAlertIfShowing();
+            return;
+        }
+
+        if (currentTemperature > thresholdTemperature) {
+            if (!temperatureAlertTriggered) {
+                temperatureAlertTriggered = true;
+                showTemperatureWarningDialog(currentTemperature, thresholdTemperature);
+            }
+            return;
+        }
+
+        temperatureAlertTriggered = false;
+        dismissTemperatureAlertIfShowing();
+    }
+
+    private void showTemperatureWarningDialog(float currentTemperature, float thresholdTemperature) {
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
+        dismissTemperatureAlertIfShowing();
+        String message = String.format(Locale.CHINA,
+                "当前水温 %.1f°C，已超过设定阈值 %.1f°C，请及时处理。",
+                currentTemperature,
+                thresholdTemperature);
+        temperatureAlertDialog = new AlertDialog.Builder(this)
+                .setTitle("水温预警")
+                .setMessage(message)
+                .setPositiveButton("知道了", null)
+                .setCancelable(true)
+                .create();
+        temperatureAlertDialog.show();
+    }
+
+    private void dismissTemperatureAlertIfShowing() {
+        if (temperatureAlertDialog != null && temperatureAlertDialog.isShowing()) {
+            temperatureAlertDialog.dismiss();
+        }
     }
 
     private String buildExtendedTelemetrySummary(
@@ -955,6 +1005,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        dismissTemperatureAlertIfShowing();
         if (scheduler != null) {
             scheduler.shutdownNow();
         }
